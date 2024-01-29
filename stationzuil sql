@@ -1,0 +1,44 @@
+-- tabel moderator aanmaken
+CREATE TABLE moderator (
+	moderatornummer SERIAL PRIMARY KEY,
+	naam VARCHAR(255) NOT NULL,
+	emailadres VARCHAR(100) NOT NULL
+);
+
+-- tabel station_service aanmaken
+CREATE TABLE station_service (
+station_city VARCHAR (255) PRIMARY KEY NOT NULL,
+country VARCHAR (255) NOT NULL,
+ov_bike BOOLEAN NOT NULL,
+elevator BOOLEAN NOT NULL,
+toilet BOOLEAN NOT NULL,
+park_and_ride BOOLEAN NOT NULL
+);
+
+-- tabel bericht aanmaken
+create table bericht (
+	berichtnummer SERIAL PRIMARY KEY,
+	moderatornummer INTEGER NOT NULL,
+	naam VARCHAR(50) NOT NULL,
+	datum DATE NOT NULL,
+	tijd TIME NOT NULL,
+	station VARCHAR(255) NOT NULL,
+	bericht VARCHAR(140) NOT NULL,
+	beoordeling VARCHAR(255) NOT NULL,
+	beoordelingsdatum DATE NOT NULL,
+	beoordelingstijd TIME NOT NULL,
+	CONSTRAINT moderatornummer_fk FOREIGN KEY (moderatornummer) REFERENCES moderator(moderatornummer),
+	CONSTRAINT station_fk FOREIGN KEY (station) REFERENCES station_service(station_city)
+);
+
+INSERT INTO station_service (
+station_city, country, ov_bike, elevator, toilet, park_and_ride)
+VALUES
+('Amsterdam', 'NL', false, true, false, true),
+('Utrecht', 'NL', true, false, true, false),
+('Zaandam', 'NL', false, true, false, true);
+
+INSERT INTO moderator  (naam, emailadres)
+VALUES ( 'yuanfa','yuanfatuypp@gmail.com')
+VALUES ( 'amber','amberjanssen@gmail.com')
+VALUES ( 'lisa','lisabeets@gmail.com')
